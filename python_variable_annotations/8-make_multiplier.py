@@ -5,9 +5,9 @@ from typing import List, Set, Dict, Tuple, Union, Callable
 
 def make_multiplier(multiplier: float) -> Callable[[float], float]:
     """return the function"""
+
+    def multiplication(x):
+        """make the multiplication"""
+        return x * multiplier
+
     return multiplication
-
-
-def multiplication(multiplier):
-    """make the multiplication"""
-    return multiplier * multiplier
