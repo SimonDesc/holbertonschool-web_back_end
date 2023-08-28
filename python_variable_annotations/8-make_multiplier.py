@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Write a type-annotated function make_multiplier that takes a float multiplier as argument and returns a function"""
+"""Write a type-annotated function make_multiplier """
 from typing import List, Set, Dict, Tuple, Union, Callable
 
 
