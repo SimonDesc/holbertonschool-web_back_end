@@ -3,6 +3,6 @@
 from typing import List, Set, Dict, Tuple, Union
 
 
-def to_kv(k : str, v: Union[int, float]) -> Tuple[str, float]:
+def to_kv(k: str, v: Union[int, float]) -> Tuple[str, float]:
     """return the sum of a list"""
-    return (k, v*v)
+    return (k, v * v)
