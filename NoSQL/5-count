@@ -1,2 +1,2 @@
 // insert document in a collection
-db.school.count({name: "Holberton school"});
+db.school.count();
