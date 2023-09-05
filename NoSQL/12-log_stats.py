@@ -1,9 +1,6 @@
 #!/usr/bin/env python3
 from pymongo import MongoClient
-"""Function that changes all topics of a school document
-based on the name"""
-
-schools_by_topic = __import__('11-schools_by_topic').schools_by_topic
+""" a Python script that provides some stats about Nginx logs stored in MongoDB"""
 
 if __name__ == "__main__":
     client = MongoClient('mongodb://127.0.0.1:27017')
