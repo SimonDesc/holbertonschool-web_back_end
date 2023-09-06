@@ -32,21 +32,25 @@ class Server:
         if self.__indexed_dataset is None:
             dataset = self.dataset()
             truncated_dataset = dataset[:1000]
-            self.__indexed_dataset = {i: dataset[i] for i in range(len(dataset))}
+            self.__indexed_dataset = {
+                i: dataset[i] for i in range(len(dataset))
+                }
         return self.__indexed_dataset
 
     def get_hyper_index(self, index: int = None, page_size: int = 10) -> Dict:
         """
-        Méthode pour obtenir une page paginée du dataset avec gestion de l'indexation
-        résiliente aux suppressions.
+        Méthode pour obtenir une page paginée du dataseta avec
+        gestion de l'indexation résiliente aux suppressions.
 
         Args:
-        index (int): L'indice de début de la page à retourner. C'est l'indice du premier
-                    élément de la page actuelle. Par exemple, si on demande la page 3
-                    avec une page_size de 20, et qu'aucune donnée n'a été supprimée du
+        index (int): L'indice de début de la page à retourner.
+                    C'est l'indice du premier élément de la page actuelle.
+                    Par exemple, si on demande la page 3
+                    avec une page_size de 20, et qu'aucune donnée n'a été
+                    supprimée du
                     dataset, l'indice actuel devrait être 60.
         page_size (int): La taille actuelle de la page.
-        
+
         Returns:
         dict: Un dictionnaire contenant les éléments suivants :
             - index : l'indice actuel
@@ -61,7 +65,6 @@ class Server:
         # Récupérer le dataset indexé
         indexed_dataset = self.indexed_dataset()
 
-        # Initialiser une liste vide pour stocker les données de la page actuelle
         data = []
 
         # Boucle pour récupérer les données de la page actuelle
