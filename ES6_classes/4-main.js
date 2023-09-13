@@ -1,9 +1,8 @@
 import Pricing from './4-pricing.js';
-import convertPrice from './4-pricing.js';
 import Currency from './3-currency.js';
 
 const p = new Pricing(100, new Currency("EUR", "Euro"))
 console.log(p);
 console.log(p.displayFullPrice());
 
-console.log(convertPrice(10, 1.5))
+console.log(Pricing.convertPrice(10, 1.5))
