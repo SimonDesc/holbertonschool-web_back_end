@@ -38,7 +38,7 @@ export default class HolbertonCourse {
       Array.isArray(newStudent)
       && newStudent.every((student) => typeof student === 'string')
     ) {
-      this._students = newStudent; // Initialisez l'attribut underscore _students
+      this._students = newStudent;
     } else {
       throw new TypeError('Students must be an array of strings');
     }
