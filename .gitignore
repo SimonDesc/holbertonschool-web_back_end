@@ -5,4 +5,5 @@
 ES6_classes/node_modules/
 ES6_basic/node_modules/
 ES6_promise/node_modules/
+ES6_data_manipulation/node_modules/
 nodesource_setup.sh
