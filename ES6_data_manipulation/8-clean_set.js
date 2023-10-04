@@ -1,10 +1,15 @@
 export default function cleanSet(Set, startString) {
   let stringAllSet = '';
-  const strLenght = startString.length;
+
+  if (typeof startString === 'undefined') {
+    return stringAllSet;
+  }
 
   if (startString === '') {
     return stringAllSet;
   }
+
+  const strLenght = startString.length;
 
   for (const value of Set) {
     if (value.search(startString) !== -1) {
