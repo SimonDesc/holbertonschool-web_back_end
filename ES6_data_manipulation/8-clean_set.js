@@ -1,7 +1,7 @@
 export default function cleanSet(Set, startString) {
   let stringAllSet = '';
 
-  if (typeof startString === 'undefined') {
+  if (typeof startString !== 'string') {
     return stringAllSet;
   }
 
