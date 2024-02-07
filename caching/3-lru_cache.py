@@ -5,7 +5,7 @@ LRUCache Module
 from base_caching import BaseCaching
 
 
-class LIFOCache(BaseCaching):
+class LRUCache(BaseCaching):
     """
     LRUCache class
     """
