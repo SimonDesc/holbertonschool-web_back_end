@@ -1,19 +1,13 @@
 #!/usr/bin/python3
 """
-LIFOCache Module
+LRUCache Module
 """
 from base_caching import BaseCaching
 
 
 class LIFOCache(BaseCaching):
     """
-    LIFOCache class
-
-    Implements a cache storage mechanism that follows the Last In,
-    First Out (LIFO)
-    principle. When the cache exceeds its maximum size, the most recently
-    added item
-    before the new addition is removed.
+    LRUCache class
     """
 
     def __init__(self):
@@ -26,9 +20,9 @@ class LIFOCache(BaseCaching):
             pass
         else:
             if len(self.cache_data) >= BaseCaching.MAX_ITEMS:
-                last_item = list(self.cache_data.keys())[-1]
-                del self.cache_data[last_item]
-                print("DISCARD:", last_item)
+                lru_item = list(self.cache_data.keys())[-1]
+                del self.cache_data[lru_item]
+                print("DISCARD:", lru_item)
             self.cache_data[key] = item
 
     def get(self, key):
