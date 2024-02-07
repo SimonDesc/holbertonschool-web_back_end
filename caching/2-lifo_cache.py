@@ -9,8 +9,10 @@ class LIFOCache(BaseCaching):
     """
     LIFOCache class
 
-    Implements a cache storage mechanism that follows the Last In, First Out (LIFO)
-    principle. When the cache exceeds its maximum size, the most recently added item
+    Implements a cache storage mechanism that follows the Last In,
+    First Out (LIFO)
+    principle. When the cache exceeds its maximum size, the most
+    recently added item
     before the new addition is removed.
     """
 
