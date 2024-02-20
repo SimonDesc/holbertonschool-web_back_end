@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
-"""
-filter_datum
-"""
+"""Regex-ing module to obfuscate log messages"""
 
-import logging
 from typing import List
+import json
+import logging
+import mysql.connector
+import os
 import re
+
 
 PII_FIELDS = ('name', 'email', 'phone', 'ssn', 'password')
 
@@ -23,37 +25,60 @@ def filter_datum(fields: List[str],
 
 
 class RedactingFormatter(logging.Formatter):
-    """ Redacting Formatter class
-        """
+    """ Redacting Formatter class"""
 
     REDACTION = "***"
     FORMAT = "[HOLBERTON] %(name)s %(levelname)s %(asctime)-15s: %(message)s"
     SEPARATOR = ";"
 
     def __init__(self, fields: List[str]):
+        """The constructor method of the class"""
         super(RedactingFormatter, self).__init__(self.FORMAT)
         self.fields = fields
 
     def format(self, record: logging.LogRecord) -> str:
-        """ Format the record and return an obfuscated version """
-        original_message = super().format(record)
-        redacted_message = filter_datum(self.fields,
-                                        self.REDACTION,
-                                        original_message,
-                                        self.SEPARATOR)
-        return redacted_message
+        """The formatter method of the class"""
+        record.msg = filter_datum(self.fields, self.REDACTION,
+                                  record.msg, self.SEPARATOR)
+        return super(RedactingFormatter, self).format(record)
 
 
 def get_logger() -> logging.Logger:
-    """Create and return a logger for users data"""
+    """A function that creates a logger object"""
     logger = logging.getLogger("user_data")
     logger.setLevel(logging.INFO)
     logger.propagate = False
-
-    stream_handler = logging.StreamHandler()
-    formatter = RedactingFormatter(PII_FIELDS)
-    stream_handler.setFormatter(formatter)
-
-    logger.addHandler(stream_handler)
-
+    formatter = RedactingFormatter(fields=list(PII_FIELDS))
+    handler = logging.StreamHandler()
+    handler.setFormatter(formatter)
+    logger.addHandler(handler)
     return logger
+
+
+def get_db() -> mysql.connector.connection.MySQLConnection:
+    """A function that connects to a secure database"""
+    user = os.getenv("PERSONAL_DATA_DB_USERNAME", default="root")
+    password = os.getenv("PERSONAL_DATA_DB_PASSWORD", default="")
+    host = os.getenv("PERSONAL_DATA_DB_HOST", default="localhost")
+    database = os.getenv("PERSONAL_DATA_DB_NAME")
+    return mysql.connector.connection.MySQLConnection(user=user,
+                                                      password=password,
+                                                      host=host,
+                                                      database=database)
+
+
+def main():
+    """Main function used to read and filter data"""
+    logger = get_logger()
+    db = get_db()
+    cursor = db.cursor()
+    cursor.execute("SELECT * FROM users")
+    for row in cursor:
+        filtered_row = filter_datum(PII_FIELDS,'***', str(row), ';')
+        logger.info(filtered_row)
+    
+    cursor.close()
+    db.close()
+
+if __name__ == '__main__':
+    main()
