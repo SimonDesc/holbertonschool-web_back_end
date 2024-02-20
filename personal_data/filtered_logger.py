@@ -33,6 +33,7 @@ class RedactingFormatter(logging.Formatter):
         self.fields = fields
 
     def format(self, record: logging.LogRecord) -> str:
+        """ Format the record and return an obfuscated version """
         original_message = super().format(record)
         redacted_message = filter_datum(self.fields,
                                         self.REDACTION,
