@@ -74,11 +74,12 @@ def main():
     cursor = db.cursor()
     cursor.execute("SELECT * FROM users")
     for row in cursor:
-        filtered_row = filter_datum(PII_FIELDS,'***', str(row), ';')
+        filtered_row = filter_datum(PII_FIELDS, '***', str(row), ';')
         logger.info(filtered_row)
-    
+
     cursor.close()
     db.close()
+
 
 if __name__ == '__main__':
     main()
