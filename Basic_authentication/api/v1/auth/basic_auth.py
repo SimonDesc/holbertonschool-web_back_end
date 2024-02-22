@@ -45,7 +45,7 @@ class BasicAuth(Auth):
             # Base64 decode the encoded string into bytes.
             b = base64.b64decode(base64_authorization_header)
             # Decode the bytes into str.
-            s = b.decode("utf-8")
+            s = b.decode("utf-8", errors='ignore')
             return s
 
     def extract_user_credentials(
@@ -86,3 +86,20 @@ class BasicAuth(Auth):
             return None
 
         return users[0]
+
+    def current_user(self, request=None) -> TypeVar('User'):  # type: ignore
+        """ API is fully protected by a Basic Authentication
+        """
+        authorization_header = self.authorization_header(request)
+        base64_authorization_header = self.extract_base64_authorization_header(
+            authorization_header)
+        decoded_b64_auth_header = self.decode_base64_authorization_header(
+            base64_authorization_header)
+        user_credentials = self.extract_user_credentials(
+            decoded_b64_auth_header)
+
+        user = self.user_object_from_credentials(user_credentials[0],
+                                                 user_credentials[1])
+        if user is None:
+            return None
+        return user
