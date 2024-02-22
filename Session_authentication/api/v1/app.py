@@ -51,20 +51,28 @@ def forbidden(error) -> str:
 
 @app.before_request
 def load_user():
-    """ Filtering each request
-    """
-    excluded_path = ['/api/v1/status/',
-                     '/api/v1/unauthorized/', '/api/v1/forbidden/']
+    """ Filtering each request. """
+    excluded_paths = ['/api/v1/status/',
+                      '/api/v1/unauthorized/',
+                      '/api/v1/forbidden/',
+                      '/api/v1/auth_session/login/']
 
-    if auth is None:
+    if auth is None or not auth.require_auth(request.path, excluded_paths):
         return
-    if not auth.require_auth(request.path, excluded_path):
-        return
-    if auth.authorization_header(request) is None:
-        print("authorization_header")
+
+    # Si ni l'en-tête d'autorisation ni le cookie de session
+    # ne sont présents, refuser l'accès.
+    if auth.authorization_header(request) is None \
+            and auth.session_cookie(request) is None:
         abort(401)
+
+    # Après avoir confirmé qu'une forme d'authentification est présente,
+    # vérifier si un utilisateur courant peut être identifié.
     if auth.current_user(request) is None:
         abort(403)
+
+    # Si un utilisateur est identifié, attribuer cet utilisateur
+    # à la requête pour une utilisation ultérieure
     request.current_user = auth.current_user(request)
 
 
