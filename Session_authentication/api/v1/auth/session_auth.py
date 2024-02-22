@@ -2,6 +2,7 @@
 """
 Manage the Session authentication
 """
+import os
 import uuid
 from api.v1.auth.auth import Auth
 
@@ -32,3 +33,11 @@ class SessionAuth(Auth):
         if not isinstance(session_id, str):
             return None
         return self.user_id_by_session_id.get(session_id)
+
+    def session_cookie(self, request=None):
+        """ Returns a cookie value from a request
+        """
+        if request is None:
+            return None
+        SESSION_NAME = os.getenv('SESSION_NAME')
+        return request.cookies.get(SESSION_NAME)
