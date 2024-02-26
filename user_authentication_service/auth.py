@@ -68,3 +68,10 @@ class Auth:
         self._db.update_user(user.id, session_id=uuid)
 
         return uuid
+
+    def get_user_from_session_id(self, session_id: str) -> User:
+        """Return the corresponding User or None"""
+        user = self._db.find_user_by(session_id=session_id)
+        if not session_id or not user:
+            return None
+        return user
