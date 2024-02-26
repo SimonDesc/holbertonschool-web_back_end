@@ -2,6 +2,7 @@
 """Auth module
 """
 
+import uuid
 from db import DB
 import bcrypt
 from user import User
@@ -50,3 +51,7 @@ class Auth:
                 return True
 
         return False
+
+    def _generate_uuid(self):
+        """Method to generate UUIDs"""
+        return str(uuid.uuid4())
