@@ -53,16 +53,13 @@ def login():
 def logout():
     """Logout route
     """
-    id = request.form.get('session_id')
+    id = request.cookies.get('session_id')
+    user = AUTH.get_user_from_session_id(id)
 
-    try:
-        user = AUTH.get_user_from_session_id(id)
-        if user:
-            AUTH.destroy_session(user.id)
-            return redirect('/')
-        else:
-            abort(403)
-    except ValueError:
+    if user:
+        AUTH.destroy_session(user.id)
+        return redirect('/')
+    else:
         abort(403)
 
 
