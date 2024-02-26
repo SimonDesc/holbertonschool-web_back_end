@@ -2,7 +2,7 @@
 """Auth module
 """
 
-import uuid
+from uuid import uuid4
 from db import DB
 import bcrypt
 from user import User
@@ -15,6 +15,11 @@ def _hash_password(password: str) -> bytes:
     byte_obj = bytes(password, 'utf-8')
     salt = bcrypt.gensalt()
     return bcrypt.hashpw(byte_obj, salt)
+
+
+def _generate_uuid() -> str:
+    """Generates a uuid"""
+    return str(uuid4())
 
 
 class Auth:
@@ -51,8 +56,3 @@ class Auth:
                 return True
 
         return False
-
-    def _generate_uuid(self):
-        """Method to generate UUIDs"""
-        random_id = uuid.uuid4()
-        return random_id.__repr__()
