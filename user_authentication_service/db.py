@@ -51,17 +51,18 @@ class DB:
             raise NoResultFound
         return user
 
-    def update_user(self, id: int, **kwargs) -> None:
+    def update_user(self, user_id: int, **kwargs) -> None:
         """Update a user with keyword arg"""
-        user = self.find_user_by(id=id)
-        if user:
-            try:
-                for key, value in kwargs.items():
-                    setattr(user, key, value)
-                self._session.commit()
-            except Exception as e:
-                raise ValueError
-        else:
-            raise ValueError
+        try:
+            user = self.find_user_by(id=user_id)
+        except (InvalidRequestError, NoResultFound):
+            return
 
+        for key, value in kwargs.items():
+            if hasattr(user, key):
+                setattr(user, key, value)
+            else:
+                raise ValueError
+
+        self._session.commit()
         return None
