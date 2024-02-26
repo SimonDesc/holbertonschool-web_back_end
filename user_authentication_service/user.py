@@ -18,5 +18,4 @@ class User(Base):
     reset_token = Column(String(250))
 
     def __repr__(self):
-        return "<User(name='%s', fullname='%s', nickname='%s')>" % (
-            self.name, self.fullname, self.nickname)
+        return f"<User(id='{self.id}', email='{self.email}')>"
