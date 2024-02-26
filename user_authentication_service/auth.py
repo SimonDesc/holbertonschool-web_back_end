@@ -54,4 +54,5 @@ class Auth:
 
     def _generate_uuid(self):
         """Method to generate UUIDs"""
-        return str(uuid.uuid4())
+        random_id = uuid.uuid4()
+        return str(random_id)
