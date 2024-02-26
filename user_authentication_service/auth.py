@@ -2,6 +2,7 @@
 """Auth module
 """
 
+from typing import Union
 from uuid import uuid4
 from db import DB
 import bcrypt
@@ -69,7 +70,7 @@ class Auth:
 
         return uuid
 
-    def get_user_from_session_id(self, session_id: str) -> User:
+    def get_user_from_session_id(self, session_id: str) -> Union[User, None]:
         """Return the corresponding User or None"""
         try:
             user = self._db.find_user_by(session_id=session_id)
