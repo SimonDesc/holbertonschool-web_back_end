@@ -33,7 +33,7 @@ class DB:
         return self.__session
 
     def add_user(self, email: str, hashed_password: str) -> User:
-        """Add a user to db"""
+        """Adds a user to db"""
         user = User(email=email, hashed_password=hashed_password)
         self._session.add(user)
         self._session.commit()
@@ -52,7 +52,7 @@ class DB:
         return user
 
     def update_user(self, user_id: int, **kwargs) -> None:
-        """Update a user with keyword arg"""
+        """Updates an user in db using keyword arguments"""
         try:
             user = self.find_user_by(id=user_id)
         except (InvalidRequestError, NoResultFound):
@@ -65,4 +65,4 @@ class DB:
                 raise ValueError
 
         self._session.commit()
-        return None
+        return user
