@@ -52,17 +52,21 @@ class DB:
         return user
 
     def update_user(self, user_id: int, **kwargs) -> None:
-        """Update a user with keyword arg"""
-        try:
-            user = self.find_user_by(id=user_id)
-        except (InvalidRequestError, NoResultFound):
-            return
+        """Update a user with keyword arguments."""
+        user = self._session.query(User).filter_by(id=user_id).first()
+        if user is None:
+            raise ValueError(f"User with id={user_id} not found.")
+
+        editable_attributes = ['email', 'session_id', 'hashed_password']
 
         for key, value in kwargs.items():
-            if hasattr(user, key):
+            if key in editable_attributes:
                 setattr(user, key, value)
             else:
-                raise ValueError
+                raise ValueError(f"Attribute {key} cannot be updated.")
 
-        self._session.commit()
-        return None
+        try:
+            self._session.commit()
+        except Exception as e:
+            self._session.rollback()
+            raise e
