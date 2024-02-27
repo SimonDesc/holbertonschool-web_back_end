@@ -104,5 +104,5 @@ class Auth:
         except NoResultFound:
             raise ValueError
 
-        password = _hash_password(password)
-        self._db.update_user(user.id, password=password, reset_token=None)
+        new_password = _hash_password(password)
+        self._db.update_user(user.id, password=new_password, reset_token=None)
