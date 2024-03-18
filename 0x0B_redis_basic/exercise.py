@@ -2,7 +2,7 @@
 """Generate a new element in Redis"""
 import redis
 from typing import Union
-import uuid
+from uuid import uuid4, UUID
 
 
 class Cache:
@@ -17,11 +17,10 @@ class Cache:
         self._redis.flushdb()  # Flush database: clear old entries
 
     def store(self, data: Union[int, str, bytes, float]) -> str:
-        """Store the data with a uuid key"""
-        uuid_key = uuid.uuid4()
-        uuid_key = str(uuid_key)
-        if not data:
-            return uuid_key
+        """Store the input data in Redis using a
+        random key and return the key.
+        """
+        random_key = str(uuid4())
+        self._redis.set(random_key, data)
 
-        self._redis.set(uuid_key, data)
-        return uuid_key
+        return random_key
