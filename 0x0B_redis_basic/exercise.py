@@ -1,22 +1,21 @@
 #!/usr/bin/env python3
-"""Generate a new element in Redis"""
+"""
+Generate a new element in Redis
+"""
 import redis
 from typing import Union
 from uuid import uuid4, UUID
 
 
 class Cache:
-    """
-    This Python class `Cache` initializes a Redis connection and
-    provides a method `store` to store data
-    in Redis with a generated UUID key.
-    """
+    """ Class for implementing a Cache """
 
-    def __init__(self) -> None:
+    def __init__(self):
+        """ Constructor Method """
         self._redis = redis.Redis()
-        self._redis.flushdb()  # Flush database: clear old entries
+        self._redis.flushdb()
 
-    def store(self, data: Union[int, str, bytes, float]) -> str:
+    def store(self, data: Union[str, bytes, int, float]) -> str:
         """Store the input data in Redis using a
         random key and return the key.
         """
