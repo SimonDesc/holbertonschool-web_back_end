@@ -19,5 +19,9 @@ class Cache:
     def store(self, data: Union[int, str, bytes, float]) -> str:
         """Store the data with a uuid key"""
         uuid_key = uuid.uuid4()
-        self._redis.set(str(uuid_key), data)
-        return str(uuid_key)
+        uuid_key = str(uuid_key)
+        if not data:
+            return uuid_key
+
+        self._redis.set(uuid_key, data)
+        return uuid_key
