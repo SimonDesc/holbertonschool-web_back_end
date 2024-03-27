@@ -1,6 +1,6 @@
 import * as chai from 'chai';
 const expect = chai.expect;
-import * as sinon from 'sinon';
+import sinon from 'sinon';
 import Utils from './utils.js'
 import sendPaymentRequestToApi from './3-payment.js'
 
