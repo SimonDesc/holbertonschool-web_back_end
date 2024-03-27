@@ -1,6 +1,7 @@
-'use strict';
-const chai = require('chai');
-const calculateNumber = require('./2-calcul_chai.js');
+import * as chai from 'chai';
+
+import calculateNumber from './2-calcul_chai.js';
+
 
 describe('calculateNumber type == SUM', () => {
   it('checks the output', () => {
