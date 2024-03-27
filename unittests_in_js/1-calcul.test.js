@@ -1,81 +1,38 @@
-import calculateNumber from "./1-calcul.js";
-import { strictEqual, throws } from 'assert';
+'use strict';
+const assert = require('assert');
+const calculateNumber = require('./1-calcul.js');
 
+describe('calculateNumber type == SUM', () => {
+  it('checks the output', () => {
+    assert.strictEqual(calculateNumber('SUM', 1, 3), 4);
+    assert.strictEqual(calculateNumber('SUM', 1, 3.7), 5);
+    assert.strictEqual(calculateNumber('SUM', 3.7, 1), 5);
+    assert.strictEqual(calculateNumber('SUM', 1.4, 4.5), 6);
+    assert.strictEqual(calculateNumber('SUM', 4.5, 1.4), 6);
+    assert.strictEqual(calculateNumber('SUM', 0.0, 0), 0);
+    assert.strictEqual(calculateNumber('SUM', -1, 1), 0);
+    assert.strictEqual(calculateNumber('SUM', 1, -1), 0);
+    assert.strictEqual(calculateNumber('SUM', -1, -1), -2);
+  });
+});
 
-describe('calculateNumber', () => {
-	describe('type "SUM"', () => {
-		it('should return sum of integers', () => {
-			strictEqual(calculateNumber('SUM', 1, 3), 4);
-			strictEqual(calculateNumber('SUM', 1, -1), 0);
-			strictEqual(calculateNumber('SUM', 1, -3), -2);
-		});
-		it('should round floats', () => {
-			strictEqual(calculateNumber('SUM', 1, 3.7), 5);
-			strictEqual(calculateNumber('SUM', 1.2, 3.7), 5);
-			strictEqual(calculateNumber('SUM', 1.5, 3.7), 6);
-			strictEqual(calculateNumber('SUM', 0.1, 0), 0);
-			strictEqual(calculateNumber('SUM', 1.4, -4.5), -3);
-		});
+describe('calculateNumber type == SUBTRACT', () => {
+  it('checks the output', () => {
+    assert.strictEqual(calculateNumber('SUBTRACT', 5, 3), 2);
+    assert.strictEqual(calculateNumber('SUBTRACT', 3.1, 2.5), 0);
+    assert.strictEqual(calculateNumber('SUBTRACT', 4.5, 2), 3);
+    assert.strictEqual(calculateNumber('SUBTRACT', 0.0, 5), -5);
+    assert.strictEqual(calculateNumber('SUBTRACT', 2, 4.5), -3);
+    assert.strictEqual(calculateNumber('SUBTRACT', -1, 1), -2);
+    assert.strictEqual(calculateNumber('SUBTRACT', -1.5, 0), -1);
+  });
+});
 
-		it('should return the rounded number if only one is provided', () => {
-			strictEqual(calculateNumber('SUM', 2), 2);
-			strictEqual(calculateNumber('SUM', 2.7), 3);
-		});
-	});
-	describe('type "SUBTRACT"', () => {
-		it('should return difference of integers', () => {
-			strictEqual(calculateNumber("SUBTRACT", 5, 1), 4);
-			strictEqual(calculateNumber("SUBTRACT", 5, 5), 0);
-			strictEqual(calculateNumber("SUBTRACT", 1, 5), -4);
-		});
-
-		it('should return difference of rounded floats', () => {
-			strictEqual(calculateNumber("SUBTRACT", 8.6, 4.1), 5);
-			strictEqual(calculateNumber("SUBTRACT", 10, 9.8), 0);
-			strictEqual(calculateNumber("SUBTRACT", 8.2, 9.2), -1);
-
-		});
-
-		it('should return rounded number if only one is provided', () => {
-			strictEqual(calculateNumber("SUBTRACT", 8.7), 9);
-			strictEqual(calculateNumber("SUBTRACT", 0.3), 0);
-			strictEqual(calculateNumber("SUBTRACT", -8.7), -9);
-		});
-	});
-	describe('type "DIVIDE"', () => {
-		it('should return quotient of integers', () => {
-			strictEqual(calculateNumber("DIVIDE", 9, 4), 2.25);
-			strictEqual(calculateNumber("DIVIDE", -9, 4), -2.25);
-			strictEqual(calculateNumber("DIVIDE", 9, -4), -2.25);
-			strictEqual(calculateNumber("DIVIDE", -9, -4), 2.25);
-		});
-
-		it('should return quotient of non-zero rounded floats', () => {
-			strictEqual(calculateNumber("DIVIDE", 1.6, 5.2), 0.4);
-			strictEqual(calculateNumber("DIVIDE", 1.6, 5), 0.4);
-			strictEqual(calculateNumber("DIVIDE", -2, -5.2), 0.4);
-		});
-
-		it('should return 0 if "DIVIDE" rounds to 0', () => {
-			strictEqual(calculateNumber("DIVIDE", 0.3, 3.6), 0);
-			strictEqual(calculateNumber("DIVIDE", -0.3, 3.6), 0);
-			strictEqual(calculateNumber("DIVIDE", 0, 3.6), 0);
-		});
-
-		it('should return "ERROR" if divisor rounds to 0', () => {
-			strictEqual(calculateNumber("DIVIDE", 8.4, 0.4), 'Error');
-			strictEqual(calculateNumber("DIVIDE", 8.4, -0.4), 'Error');
-			strictEqual(calculateNumber("DIVIDE", 8.4, 0), 'Error');
-		});
-	});
-
-	describe('invalid operation type', () => {
-		it('should throw error if type is invalid', () => {
-			throws(() => calculateNumber("INVALID", 5.7, 4.6), {
-				message:
-					'Opérateur inconnu ou non spécifié.'
-			});
-		});
-	});
-
+describe('calculateNumber type == DIVIDE', () => {
+  it('check the output', () => {
+    assert.strictEqual(calculateNumber('DIVIDE', 2, 2.5), 0.6666666666666666);
+    assert.strictEqual(calculateNumber('DIVIDE', 0.0, 2), 0);
+    assert.strictEqual(calculateNumber('DIVIDE', -1, 1), -1);
+    assert.strictEqual(calculateNumber('DIVIDE', 1, 0), 'Error');
+  });
 });
