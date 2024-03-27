@@ -1,6 +1,5 @@
 import calculateNumber from "./1-calcul.js";
 import { strictEqual, throws } from 'assert';
-console.log(calculateNumber("DIVIDE", 8.4, 0.4));
 
 
 describe('calculateNumber', () => {
