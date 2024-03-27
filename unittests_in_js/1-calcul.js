@@ -1,4 +1,4 @@
-module.exports = function calculateNumber(type, a, b = 0) {
+export default function calculateNumber(type, a, b = 0) {
 	const aNum = Number(a);
 	const bNum = Number(b);
 
@@ -18,7 +18,7 @@ module.exports = function calculateNumber(type, a, b = 0) {
 			if (Math.round(bNum) === 0) {
 				return ('ERROR')
 			}
-			result = Math.round(aNum) / Math.round(bNum);
+			const result = Math.round(aNum) / Math.round(bNum);
 			if (result === 0 && 1 / result === -Infinity)
 				return 0;
 			return result;

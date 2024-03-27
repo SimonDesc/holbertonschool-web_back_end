@@ -1,4 +1,4 @@
-module.exports = function calculateNumber(a, b = 0) {
+function calculateNumber(a, b = 0) {
 	const aNum = Number(a);
 	const bNum = Number(b);
 
@@ -7,3 +7,5 @@ module.exports = function calculateNumber(a, b = 0) {
 
 	return Math.round(aNum) + Math.round(bNum);
 };
+
+export default calculateNumber;
