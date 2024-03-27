@@ -16,7 +16,7 @@ export default function calculateNumber(type, a, b = 0) {
 			return Math.round(aNum) - Math.round(bNum);
 		case '/':
 			if (Math.round(bNum) === 0) {
-				return ('ERROR')
+				return ('Error')
 			}
 			const result = Math.round(aNum) / Math.round(bNum);
 			if (result === 0 && 1 / result === -Infinity)

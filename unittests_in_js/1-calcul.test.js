@@ -64,9 +64,9 @@ describe('calculateNumber', () => {
 		});
 
 		it('should return "ERROR" if divisor rounds to 0', () => {
-			strictEqual(calculateNumber("DIVIDE", 8.4, 0.4), 'ERROR');
-			strictEqual(calculateNumber("DIVIDE", 8.4, -0.4), 'ERROR');
-			strictEqual(calculateNumber("DIVIDE", 8.4, 0), 'ERROR');
+			strictEqual(calculateNumber("DIVIDE", 8.4, 0.4), 'Error');
+			strictEqual(calculateNumber("DIVIDE", 8.4, -0.4), 'Error');
+			strictEqual(calculateNumber("DIVIDE", 8.4, 0), 'Error');
 		});
 	});
 
