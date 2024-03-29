@@ -1,18 +1,11 @@
-import { createClient } from 'redis';
+import redis from 'redis';
 
-async function main() {
-  const client = createClient();
+const client = redis.createClient();
 
-  client.on('error', (err) => console.log('Redis Client Error', err));
+client.on('error', (error) => {
+  console.log(`Redis client not connected to the server: ${error.message}`);
+});
 
-  client.on('connect', () => console.log('Redis client connected to the server'));
-
-  await client.connect();
-
-  // Votre code pour utiliser le client Redis ici
-  
-  // N'oubliez pas de fermer la connexion une fois que vous avez terminé
-  // await client.quit();
-}
-
-main().catch(console.error);
+client.on('connect', () => {
+  console.log('Redis client connected to the server');
+});
